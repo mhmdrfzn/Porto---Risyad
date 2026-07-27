@@ -116,7 +116,7 @@ export const translations = {
       cta: 'Contact',
     },
     hero: {
-      greeting: "Hi, I'm Risyad",
+      greeting: "Hi, I'm Mochamad Risyad Fauzan",
       subtitle1: 'I love building',
       interactive: ' interactive',
       subtitle2: ' web interfaces and',
@@ -142,9 +142,9 @@ export const translations = {
         coffee: 'Coffee Drank',
       },
       timeline: [
-        { year: '2024', title: 'Machine Learning Research', desc: 'Leaf disease classification with CNN + Random Forest' },
-        { year: '2023', title: 'Full-Stack Development', desc: 'Built e-Booking platform and management systems' },
-        { year: '2022', title: 'Started Coding Journey', desc: 'Learned web development fundamentals' },
+        { year: '2026', title: 'Machine Learning Research', desc: 'Leaf disease classification with CNN + Random Forest' },
+        { year: '2025', title: 'Full-Stack Development', desc: 'Built e-Booking platform and management systems' },
+        { year: '2023', title: 'Started Coding Journey', desc: 'Learned web development fundamentals' },
       ],
     },
     skills: {
