@@ -77,7 +77,7 @@ export const translations = {
         },
         {
           title: 'Sistem Pakar Diagnosa',
-          description: 'Sistem pakar berbasis web untuk mendiagnosa penyakit menggunakan metode forward chaining dan certainty factor dengan basis pengetahuan dari ahli.',
+          description: 'Sistem pakar berbasis web untuk mendiagnosa kerusakan laptop menggunakan metode forward chaining dan certainty factor dengan basis pengetahuan dari ahli.',
         },
         {
           title: 'Sistem Absensi Geolocation',

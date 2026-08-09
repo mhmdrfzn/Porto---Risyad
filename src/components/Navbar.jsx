@@ -5,7 +5,6 @@ import { useLanguage } from '../context/LanguageContext';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const { lang, toggleLang, t } = useLanguage();
 
   const navLinks = [
@@ -16,95 +15,63 @@ export default function Navbar() {
     { name: t('nav.contact'), href: '#kontak' },
   ];
 
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
-      className={`fixed w-full z-50 top-0 transition-all duration-500 ${
-        scrolled
-          ? 'glass shadow-lg shadow-black/10'
-          : 'bg-transparent'
-      }`}
-    >
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="flex justify-between items-center h-20">
+    <nav className="fixed w-full z-50 top-0 bg-[var(--color-nocturne-base)]/90 backdrop-blur-md border-b border-[var(--color-nocturne-elevated)] transition-colors duration-300">
+      <div className="mx-auto max-w-7xl px-6 md:px-12 py-5">
+        <div className="flex justify-between items-center">
+          
           {/* Logo */}
           <motion.a
             href="#beranda"
             whileHover={{ scale: 1.05 }}
-            className="group text-2xl font-bold text-white tracking-wider relative"
+            className="group text-xl font-bold tracking-[0.2em] uppercase font-heading text-cream flex items-center gap-2"
           >
-            <span className="group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary-400 group-hover:to-accent-400 transition-all duration-300">
-              Risyad
-            </span>
-            <span className="text-primary-500 group-hover:text-accent-400 transition-colors duration-300">.</span>
+            RISYAD<span className="w-2 h-2 bg-[var(--color-nocturne-sand)] rounded-full block" />
           </motion.a>
 
           {/* Desktop menu */}
-          <div className="hidden md:flex items-center gap-1">
-            {navLinks.map((link, index) => (
-              <motion.a
-                key={link.href}
-                href={link.href}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 + index * 0.08 }}
-                className="hover-underline relative px-4 py-2 text-gray-400 hover:text-white font-medium text-sm transition-colors duration-300"
-              >
-                {link.name}
-              </motion.a>
-            ))}
+          <div className="hidden lg:flex items-center gap-8">
+            <div className="flex items-center gap-8">
+              {navLinks.map((link, index) => (
+                <motion.a
+                  key={link.href}
+                  href={link.href}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 + index * 0.08 }}
+                  className="hover-underline relative text-cream-dim hover:text-cream editorial-mono text-xs tracking-widest transition-colors duration-300"
+                >
+                  {link.name}
+                </motion.a>
+              ))}
+            </div>
+
+            <div className="w-px h-4 bg-surface-700" />
 
             {/* Language toggle */}
             <motion.button
               onClick={toggleLang}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              className="ml-3 flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-surface-700 text-gray-400 text-xs font-semibold hover:text-primary-400 hover:border-primary-500/30 transition-all duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="flex items-center gap-2 text-cream-dim hover:text-cream transition-colors duration-300"
               title={lang === 'id' ? 'Switch to English' : 'Ganti ke Bahasa Indonesia'}
             >
               <Globe size={14} />
-              <span className="uppercase">{lang === 'id' ? 'EN' : 'ID'}</span>
+              <span className="editorial-mono text-xs font-semibold tracking-wider">{lang === 'id' ? 'EN' : 'ID'}</span>
             </motion.button>
-
-            {/* Contact button */}
-            <motion.a
-              href="#kontak"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.6 }}
-              whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(16, 185, 129, 0.3)' }}
-              whileTap={{ scale: 0.95 }}
-              className="ml-2 px-5 py-2 rounded-lg bg-primary-500/10 border border-primary-500/30 text-primary-400 text-sm font-semibold hover:bg-primary-500/20 hover:border-primary-500/50 transition-all duration-300"
-            >
-              {t('nav.cta')}
-            </motion.a>
           </div>
 
-          {/* Mobile: lang toggle + menu button */}
-          <div className="md:hidden flex items-center gap-2">
-            <motion.button
-              onClick={toggleLang}
-              whileTap={{ scale: 0.9 }}
-              className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-surface-700 text-gray-400 text-xs font-semibold hover:text-primary-400 transition-all"
-            >
-              <Globe size={13} />
-              <span className="uppercase">{lang === 'id' ? 'EN' : 'ID'}</span>
-            </motion.button>
-            <motion.button
-              whileTap={{ scale: 0.9 }}
+          {/* Mobile menu toggle */}
+          <div className="lg:hidden flex items-center gap-5">
+            <button onClick={toggleLang} className="text-cream-dim hover:text-cream">
+              <span className="editorial-mono text-xs font-bold">{lang === 'id' ? 'EN' : 'ID'}</span>
+            </button>
+            <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-300 hover:text-primary-400 p-2 rounded-lg hover:bg-surface-800/50 transition-all"
+              className="text-cream-dim hover:text-cream transition-colors"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </motion.button>
+            </button>
           </div>
         </div>
       </div>
@@ -116,27 +83,24 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden glass border-t border-white/5 overflow-hidden"
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+            className="lg:hidden overflow-hidden bg-[var(--color-nocturne-base)] border-b border-[var(--color-nocturne-elevated)]"
           >
-            <div className="px-6 py-6 space-y-1">
-              {navLinks.map((link, index) => (
-                <motion.a
+            <div className="flex flex-col py-6 px-6 gap-6">
+              {navLinks.map((link) => (
+                <a
                   key={link.href}
                   href={link.href}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.08 }}
                   onClick={() => setIsOpen(false)}
-                  className="block px-4 py-3 text-gray-300 hover:text-primary-400 hover:bg-primary-500/5 rounded-lg font-medium transition-all duration-200"
+                  className="text-cream-dim hover:text-cream text-sm editorial-mono tracking-widest transition-colors"
                 >
                   {link.name}
-                </motion.a>
+                </a>
               ))}
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.nav>
+    </nav>
   );
 }
