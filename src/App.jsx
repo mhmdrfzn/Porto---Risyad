@@ -31,7 +31,7 @@ function ScrollToTop() {
           }}
           whileTap={{ scale: 0.9 }}
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-8 right-8 z-50 p-4 rounded-none bg-[var(--color-nocturne-surface)] border border-[var(--color-nocturne-sand)] text-[var(--color-nocturne-cream)] hover:bg-[var(--color-nocturne-sand)] hover:text-[var(--color-nocturne-base)] transition-colors duration-300"
+          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 md:bottom-8 md:right-8 z-50 p-3 sm:p-4 rounded-none bg-[var(--color-nocturne-surface)] border border-[var(--color-nocturne-sand)] text-[var(--color-nocturne-cream)] hover:bg-[var(--color-nocturne-sand)] hover:text-[var(--color-nocturne-base)] transition-colors duration-300"
           aria-label="Scroll to top"
         >
           <ArrowUp size={20} strokeWidth={1.5} />

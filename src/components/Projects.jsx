@@ -15,8 +15,8 @@ export default function Projects() {
   const translatedProjects = t('projects.items').slice(0, 6); // Limit to 6 for grid layout
 
   return (
-    <section id="proyek" className="relative py-24 md:py-32 bg-[var(--color-nocturne-base)] border-t border-[var(--color-nocturne-elevated)]">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
+    <section id="proyek" className="relative py-16 sm:py-24 md:py-32 bg-[var(--color-nocturne-base)] border-t border-[var(--color-nocturne-elevated)]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
         
         {/* Section header */}
         <motion.div
@@ -24,11 +24,11 @@ export default function Projects() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.8 }}
-          className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-24 gap-6 md:gap-8"
+          className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 sm:mb-16 md:mb-24 gap-4 sm:gap-6 md:gap-8"
         >
           <div>
             <span className="editorial-mono text-xs text-cream-dim block mb-4 md:mb-6">02 // SELECTED WORKS</span>
-            <h2 className="editorial-heading text-4xl md:text-6xl lg:text-[4.5rem] text-cream leading-none">
+            <h2 className="editorial-heading text-3xl sm:text-4xl md:text-6xl lg:text-[4.5rem] text-cream leading-none">
               Gallery.
             </h2>
           </div>
@@ -40,7 +40,7 @@ export default function Projects() {
         </motion.div>
 
         {/* Asymmetrical Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-y-16 md:gap-y-24 gap-x-8 lg:gap-x-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-y-10 sm:gap-y-16 md:gap-y-24 gap-x-6 sm:gap-x-8 lg:gap-x-12">
           {translatedProjects.map((project, index) => {
             // Logic for asymmetrical layout on large screens
             let colSpan = 'lg:col-span-12';

@@ -17,7 +17,7 @@ export default function Navbar() {
 
   return (
     <nav className="fixed w-full z-50 top-0 bg-[var(--color-nocturne-base)]/90 backdrop-blur-md border-b border-[var(--color-nocturne-elevated)] transition-colors duration-300">
-      <div className="mx-auto max-w-7xl px-6 md:px-12 py-5">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-12 py-4 sm:py-5">
         <div className="flex justify-between items-center">
           
           {/* Logo */}
@@ -86,7 +86,7 @@ export default function Navbar() {
             transition={{ duration: 0.3, ease: 'easeInOut' }}
             className="lg:hidden overflow-hidden bg-[var(--color-nocturne-base)] border-b border-[var(--color-nocturne-elevated)]"
           >
-            <div className="flex flex-col py-6 px-6 gap-6">
+            <div className="flex flex-col py-4 sm:py-6 px-4 sm:px-6 gap-4 sm:gap-6">
               {navLinks.map((link) => (
                 <a
                   key={link.href}

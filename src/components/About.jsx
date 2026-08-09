@@ -11,10 +11,10 @@ export default function About() {
   ];
 
   return (
-    <section id="tentang" className="relative py-24 md:py-32 bg-[var(--color-nocturne-base)] border-t border-[var(--color-nocturne-elevated)]">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
+    <section id="tentang" className="relative py-16 sm:py-24 md:py-32 bg-[var(--color-nocturne-base)] border-t border-[var(--color-nocturne-elevated)]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
         
-        <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
+        <div className="flex flex-col lg:flex-row gap-10 sm:gap-16 lg:gap-24">
           
           {/* Header & Stats - Left Column */}
           <div className="flex-1 lg:max-w-md flex flex-col justify-between">
@@ -25,7 +25,7 @@ export default function About() {
               transition={{ duration: 0.8 }}
             >
               <span className="editorial-mono text-xs text-cream-dim block mb-4 md:mb-6">03 // PHILOSOPHY</span>
-              <h2 className="editorial-heading text-4xl md:text-5xl lg:text-[3.5rem] text-cream leading-[1.1]">
+              <h2 className="editorial-heading text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] text-cream leading-[1.1]">
                 Engineering <br className="hidden md:block" />
                 <span className="italic text-cream-dim block mt-2">meets</span> aesthetics.
               </h2>
@@ -54,7 +54,7 @@ export default function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="editorial-body text-lg md:text-xl leading-relaxed text-cream-dim"
+              className="editorial-body text-base sm:text-lg md:text-xl leading-relaxed text-cream-dim"
             >
               <p className="mb-6 md:mb-8">
                 I believe that exceptional digital experiences are born at the intersection of <strong className="text-cream font-normal">systematic engineering</strong> and <strong className="text-cream font-normal">refined visual design</strong>.
@@ -73,7 +73,7 @@ export default function About() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 1, delay: 0.4 }}
-              className="grid lg:hidden grid-cols-3 gap-4 mt-12 border-t border-[var(--color-nocturne-elevated)] pt-8"
+              className="grid lg:hidden grid-cols-3 gap-3 sm:gap-4 mt-10 sm:mt-12 border-t border-[var(--color-nocturne-elevated)] pt-8"
             >
               {stats.map((stat, i) => (
                 <div key={i} className="flex flex-col">

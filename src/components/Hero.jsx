@@ -70,7 +70,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section id="beranda" className="relative min-h-screen w-full bg-[var(--color-nocturne-base)] pt-32 pb-16 flex items-center">
+    <section id="beranda" className="relative min-h-screen w-full bg-[var(--color-nocturne-base)] pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 flex items-center overflow-hidden">
       
       {/* 3D Background */}
       <div className="absolute inset-0 z-0 opacity-70 pointer-events-none overflow-hidden">
@@ -82,19 +82,19 @@ export default function Hero() {
       </div>
 
       {/* Foreground Content */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col lg:flex-row items-center justify-between gap-12">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-12 flex flex-col lg:flex-row items-center justify-between gap-8 sm:gap-10 lg:gap-12">
         
         {/* Left: Text */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="flex-1 w-full relative z-20 order-2 lg:order-1"
+          className="flex-1 w-full relative z-20 order-2 lg:order-1 text-center lg:text-left"
         >
-          <span className="editorial-mono text-xs text-cream-dim tracking-[0.2em] uppercase block mb-4 lg:mb-6">
+          <span className="editorial-mono text-[10px] sm:text-xs text-cream-dim tracking-[0.2em] uppercase block mb-3 sm:mb-4 lg:mb-6">
             Mochamad Risyad Fauzan
           </span>
-          <h1 className="editorial-heading text-6xl md:text-7xl lg:text-[6rem] leading-[1.1] text-cream mb-6 tracking-tight flex flex-col h-[130px] md:h-[150px] lg:h-[200px]">
+          <h1 className="editorial-heading text-[2.75rem] sm:text-6xl md:text-7xl lg:text-[6rem] leading-[1.1] text-cream mb-4 sm:mb-6 tracking-tight flex flex-col h-[100px] sm:h-[130px] md:h-[150px] lg:h-[200px]">
             <span>SOFTWARE</span>
             <div className="relative h-full overflow-hidden">
               <AnimatePresence mode="popLayout">
@@ -104,7 +104,7 @@ export default function Hero() {
                   animate={{ y: 0, opacity: 1, rotateX: 0 }}
                   exit={{ y: -50, opacity: 0, rotateX: 90 }}
                   transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                  className="text-[var(--color-nocturne-sand)] italic absolute left-0"
+                  className="text-[var(--color-nocturne-sand)] italic absolute left-0 w-full lg:w-auto"
                   style={{ transformOrigin: "50% 50% -50px" }}
                 >
                   {roles[roleIndex]}
@@ -112,19 +112,19 @@ export default function Hero() {
               </AnimatePresence>
             </div>
           </h1>
-          <p className="editorial-body text-cream-dim text-base md:text-lg max-w-md leading-relaxed font-light mb-10 mt-2">
+          <p className="editorial-body text-cream-dim text-sm sm:text-base md:text-lg max-w-md leading-relaxed font-light mb-8 sm:mb-10 mt-2 mx-auto lg:mx-0">
             Building digital experiences at the intersection of systematic engineering and refined visual design. Based in Indonesia.
           </p>
-          <div className="flex flex-wrap gap-6">
+          <div className="flex flex-wrap gap-4 sm:gap-6 justify-center lg:justify-start">
             <a 
               href="#proyek"
-              className="border-b border-[var(--color-nocturne-elevated)] pb-2 editorial-mono text-xs text-cream hover:text-[var(--color-nocturne-sand)] hover:border-[var(--color-nocturne-sand)] transition-all duration-300 tracking-widest"
+              className="border-b border-[var(--color-nocturne-elevated)] pb-2 editorial-mono text-[10px] sm:text-xs text-cream hover:text-[var(--color-nocturne-sand)] hover:border-[var(--color-nocturne-sand)] transition-all duration-300 tracking-widest"
             >
               EXPLORE WORKS
             </a>
             <a 
               href="#kontak"
-              className="border-b border-[var(--color-nocturne-elevated)] pb-2 editorial-mono text-xs text-cream-dim hover:text-[var(--color-nocturne-sand)] hover:border-[var(--color-nocturne-sand)] transition-all duration-300 tracking-widest"
+              className="border-b border-[var(--color-nocturne-elevated)] pb-2 editorial-mono text-[10px] sm:text-xs text-cream-dim hover:text-[var(--color-nocturne-sand)] hover:border-[var(--color-nocturne-sand)] transition-all duration-300 tracking-widest"
             >
               CONTACT
             </a>
@@ -133,25 +133,51 @@ export default function Hero() {
 
         {/* Right: Photo */}
         <motion.div
-          initial={{ opacity: 0, filter: 'blur(10px)' }}
+          initial={{ opacity: 5, filter: 'blur(10px)' }}
           animate={{ opacity: 1, filter: 'blur(0px)' }}
           transition={{ duration: 1.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="w-full max-w-[280px] sm:max-w-[340px] lg:max-w-[400px] relative z-10 order-1 lg:order-2 mb-8 lg:mb-0"
+          className="w-full max-w-[220px] sm:max-w-[280px] md:max-w-[320px] lg:max-w-[400px] relative z-10 order-1 lg:order-2 mb-4 sm:mb-6 lg:mb-0"
         >
-          <div className="relative aspect-[3/4] w-full overflow-hidden bg-[var(--color-nocturne-surface)] border border-[var(--color-nocturne-elevated)] p-3 md:p-5">
+          {/* Decorative accent line */}
+          <div className="absolute -top-3 -right-3 sm:-top-4 sm:-right-4 w-16 sm:w-20 h-16 sm:h-20 border-t border-r border-[var(--color-nocturne-sand)] opacity-20 z-0" />
+          <div className="absolute -bottom-3 -left-3 sm:-bottom-4 sm:-left-4 w-16 sm:w-20 h-16 sm:h-20 border-b border-l border-[var(--color-nocturne-sand)] opacity-20 z-0" />
+          
+          <div className="relative aspect-[3/4] w-full overflow-hidden z-10 bg-[var(--color-nocturne-base)]">
             <img
               src="/hero-portrait.png"
               alt="Mochamad Risyad Fauzan"
-              className="w-full h-full object-cover grayscale opacity-90 contrast-125"
+              className="w-full h-full object-cover object-bottom scale-115 opacity-90 contrast-125"
               style={{
-                maskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)',
-                WebkitMaskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)',
+                mixBlendMode: 'luminosity',
               }}
             />
-            {/* Corner accents */}
-            <div className="absolute top-2 left-2 w-3 h-3 border-t border-l border-[var(--color-nocturne-cream-dim)] opacity-30" />
-            <div className="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-[var(--color-nocturne-cream-dim)] opacity-30" />
+            {/* Edge gradients for seamless blending — stronger for white bg */}
+            <div 
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background: `
+                  linear-gradient(to bottom, transparent 75%, var(--color-nocturne-base) 97%),
+                  linear-gradient(to top, transparent 80%, var(--color-nocturne-base) 90%),
+                  linear-gradient(to right, var(--color-nocturne-base) 0%, transparent 70%),
+                  linear-gradient(to left, var(--color-nocturne-base) 0%, transparent 70%)
+                `,
+              }}
+            />
+            {/* Dark overlay to tame the white background */}
+            <div 
+              className="absolute inset-0 pointer-events-none bg-[var(--color-nocturne-base)] opacity-5"
+              style={{
+                mixBlendMode: 'multiply',
+              }}
+            />
           </div>
+
+          {/* Label under photo */}
+          {/* <div className="mt-3 sm:mt-4 flex items-center justify-between editorial-mono text-[9px] sm:text-[10px] text-cream-dim opacity-50">
+            <span>PORTRAIT</span>
+            <span className="w-8 sm:w-12 h-[1px] bg-[var(--color-nocturne-cream-dim)] opacity-30" />
+            <span>2025</span>
+          </div> */}
         </motion.div>
 
       </div>
@@ -161,7 +187,7 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 0.8 }}
-        className="absolute bottom-10 left-6 md:left-12 hidden lg:flex gap-16 editorial-mono text-[10px] text-cream-dim"
+        className="absolute bottom-8 sm:bottom-10 left-4 sm:left-6 md:left-12 hidden lg:flex gap-12 xl:gap-16 editorial-mono text-[10px] text-cream-dim"
       >
         <div className="flex flex-col gap-1">
           <span className="text-cream">ROLE</span>
@@ -177,7 +203,7 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 1 }}
-        className="absolute bottom-10 right-6 md:right-12 hidden lg:flex items-center gap-4"
+        className="absolute bottom-8 sm:bottom-10 right-4 sm:right-6 md:right-12 hidden lg:flex items-center gap-4"
       >
         <span className="editorial-mono text-[10px] text-cream-dim">SCROLL TO EXPLORE</span>
         <motion.div

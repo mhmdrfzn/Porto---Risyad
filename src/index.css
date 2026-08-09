@@ -42,6 +42,17 @@
     overflow-x: hidden;
     line-height: 1.6;
   }
+
+  /* Prevent horizontal overflow on small screens */
+  * {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  img, video, canvas, svg {
+    max-width: 100%;
+    height: auto;
+  }
 }
 
 /* ========== Selection ========== */

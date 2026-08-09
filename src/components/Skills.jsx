@@ -19,9 +19,9 @@ function MarqueeRow({ items, direction = 'left', speed = 30 }) {
         {repeated.map((item, i) => (
           <div
             key={i}
-            className="shrink-0 glass-badge px-6 md:px-8 py-3 md:py-4 mx-2 md:mx-3 rounded-full flex items-center justify-center hover:bg-[var(--color-nocturne-elevated)] transition-colors duration-500"
+            className="shrink-0 glass-badge px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 mx-1.5 sm:mx-2 md:mx-3 rounded-full flex items-center justify-center hover:bg-[var(--color-nocturne-elevated)] transition-colors duration-500"
           >
-            <span className="editorial-mono text-xs md:text-sm text-cream tracking-widest">{item}</span>
+            <span className="editorial-mono text-[10px] sm:text-xs md:text-sm text-cream tracking-widest">{item}</span>
           </div>
         ))}
       </div>
@@ -33,8 +33,8 @@ export default function Skills() {
   const { t } = useLanguage();
 
   return (
-    <section id="skills" className="relative py-24 md:py-32 bg-[var(--color-nocturne-base)] overflow-hidden border-t border-[var(--color-nocturne-elevated)]">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 mb-12 md:mb-20 flex flex-col md:flex-row md:items-end justify-between gap-8">
+    <section id="skills" className="relative py-16 sm:py-24 md:py-32 bg-[var(--color-nocturne-base)] overflow-hidden border-t border-[var(--color-nocturne-elevated)]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 mb-8 sm:mb-12 md:mb-20 flex flex-col md:flex-row md:items-end justify-between gap-8">
         
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -43,7 +43,7 @@ export default function Skills() {
           transition={{ duration: 0.8 }}
         >
           <span className="editorial-mono text-xs text-cream-dim block mb-4 md:mb-6">01 // EXPERTISE</span>
-          <h2 className="editorial-heading text-4xl md:text-6xl text-cream">
+          <h2 className="editorial-heading text-3xl sm:text-4xl md:text-6xl text-cream">
             The Stack.
           </h2>
         </motion.div>
