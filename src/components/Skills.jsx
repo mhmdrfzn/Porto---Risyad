@@ -2,11 +2,11 @@ import { motion } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 
 const techRow1 = [
-  'React', 'Node.js', 'JavaScript', 'Tailwind CSS', 'Framer Motion', 'Next.js', 'TypeScript'
+  'React', 'Node.js', 'JavaScript', 'Tailwind CSS', 'Framer Motion', 'Next.js', 'TypeScript', 'Flutter', 'Dart', 'Firebase'
 ];
 
 const techRow2 = [
-  'Laravel', 'PHP', 'Python', 'TensorFlow', 'MySQL', 'Git', 'Figma', 'REST API', 'Bootstrap', 'Vue.js'
+  'Laravel', 'PHP', 'Python', 'TensorFlow', 'MySQL', 'Git', 'Figma', 'REST API', 'Bootstrap', 'Vue.js', 'Supabase'
 ];
 
 function MarqueeRow({ items, direction = 'left', speed = 30 }) {
