@@ -2,6 +2,7 @@ import { useRef, useMemo, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useLanguage } from '../context/LanguageContext';
+import { Parallax } from './RevealText';
 import * as THREE from 'three';
 
 const roles = [
@@ -61,6 +62,7 @@ function FloatingParticles({ count = 30 }) {
 
 export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -70,7 +72,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section id="beranda" className="relative min-h-screen w-full bg-[var(--color-nocturne-base)] pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 flex items-center overflow-hidden">
+    <section id="beranda" className="relative min-h-screen w-full bg-[#141312]/80 pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 flex items-center overflow-hidden">
       
       {/* 3D Background */}
       <div className="absolute inset-0 z-0 opacity-70 pointer-events-none overflow-hidden">
@@ -91,8 +93,9 @@ export default function Hero() {
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
           className="flex-1 w-full relative z-20 order-2 lg:order-1 text-center lg:text-left"
         >
+          <Parallax distance={90}>
           <span className="editorial-mono text-[10px] sm:text-xs text-cream-dim tracking-[0.2em] uppercase block mb-3 sm:mb-4 lg:mb-6">
-            Mochamad Risyad Fauzan
+            {t('ui.hero.name')}
           </span>
           <h1 className="editorial-heading text-[2.75rem] sm:text-6xl md:text-7xl lg:text-[6rem] leading-[1.1] text-cream mb-4 sm:mb-6 tracking-tight flex flex-col h-[100px] sm:h-[130px] md:h-[150px] lg:h-[200px]">
             <span>SOFTWARE</span>
@@ -112,21 +115,24 @@ export default function Hero() {
               </AnimatePresence>
             </div>
           </h1>
-          <p className="editorial-body text-cream-dim text-sm sm:text-base md:text-lg max-w-md leading-relaxed font-light mb-8 sm:mb-10 mt-2 mx-auto lg:mx-0">
-            Building digital experiences at the intersection of systematic engineering and refined visual design. Based in Indonesia.
-          </p>
+          </Parallax>
+          <Parallax distance={70} className="max-w-md mb-8 sm:mb-10 mt-2 mx-auto lg:mx-0">
+            <p className="editorial-body text-cream-dim text-sm sm:text-base md:text-lg leading-relaxed font-light">
+              {t('ui.hero.description')}
+            </p>
+          </Parallax>
           <div className="flex flex-wrap gap-4 sm:gap-6 justify-center lg:justify-start">
             <a 
               href="#proyek"
               className="border-b border-[var(--color-nocturne-elevated)] pb-2 editorial-mono text-[10px] sm:text-xs text-cream hover:text-[var(--color-nocturne-sand)] hover:border-[var(--color-nocturne-sand)] transition-all duration-300 tracking-widest"
             >
-              EXPLORE WORKS
+              {t('ui.hero.explore')}
             </a>
             <a 
               href="#kontak"
               className="border-b border-[var(--color-nocturne-elevated)] pb-2 editorial-mono text-[10px] sm:text-xs text-cream-dim hover:text-[var(--color-nocturne-sand)] hover:border-[var(--color-nocturne-sand)] transition-all duration-300 tracking-widest"
             >
-              CONTACT
+              {t('ui.hero.contactBtn')}
             </a>
           </div>
         </motion.div>
@@ -190,11 +196,11 @@ export default function Hero() {
         className="absolute bottom-8 sm:bottom-10 left-4 sm:left-6 md:left-12 hidden lg:flex gap-12 xl:gap-16 editorial-mono text-[10px] text-cream-dim"
       >
         <div className="flex flex-col gap-1">
-          <span className="text-cream">ROLE</span>
-          <span>Creative Dev</span>
+          <span className="text-cream">{t('ui.hero.roleLabel')}</span>
+          <span>{t('ui.hero.roleValue')}</span>
         </div>
         <div className="flex flex-col gap-1">
-          <span className="text-cream">LOCAL TIME</span>
+          <span className="text-cream">{t('ui.hero.timeLabel')}</span>
           <span>(GMT+7)</span>
         </div>
       </motion.div>
@@ -205,7 +211,7 @@ export default function Hero() {
         transition={{ delay: 1, duration: 1 }}
         className="absolute bottom-8 sm:bottom-10 right-4 sm:right-6 md:right-12 hidden lg:flex items-center gap-4"
       >
-        <span className="editorial-mono text-[10px] text-cream-dim">SCROLL TO EXPLORE</span>
+        <span className="editorial-mono text-[10px] text-cream-dim">{t('ui.hero.scrollHint')}</span>
         <motion.div
           animate={{ x: [0, 20, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}

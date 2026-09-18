@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Parallax } from './RevealText';
 import { ArrowRight } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -38,24 +39,18 @@ export default function Contact() {
   const { t } = useLanguage();
 
   return (
-    <section id="kontak" className="relative pt-20 sm:pt-24 md:pt-32 pb-12 sm:pb-16 bg-[var(--color-nocturne-base)] min-h-[90vh] flex flex-col justify-between">
+    <section id="kontak" className="relative pt-20 sm:pt-24 md:pt-32 pb-12 sm:pb-16 bg-[#141312]/80 min-h-[90vh] flex flex-col justify-between">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 w-full">
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-16 md:gap-24 items-end">
           
           {/* Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="pb-8"
-          >
-            <span className="editorial-mono text-xs text-cream-dim block mb-6">04 // INQUIRY</span>
+          <Parallax distance={90} className="pb-8">
+            <span className="editorial-mono text-xs text-cream-dim block mb-6">{t('ui.contact.eyebrow')}</span>
             <h2 className="editorial-heading text-4xl sm:text-6xl md:text-[6rem] text-cream leading-[0.9] tracking-tight">
-              Let's <br/> talk.
+              {t('ui.contact.titleA')}<br/> {t('ui.contact.titleB')}
             </h2>
-          </motion.div>
+          </Parallax>
 
           {/* Form */}
           <motion.div
@@ -66,8 +61,8 @@ export default function Contact() {
             className="w-full max-w-md lg:ml-auto"
           >
             <form className="flex flex-col">
-              <FloatingInput type="text" name="name" label="FULL NAME" />
-              <FloatingInput type="email" name="email" label="EMAIL ADDRESS" />
+              <FloatingInput type="text" name="name" label={t('ui.contact.nameLabel')} />
+              <FloatingInput type="email" name="email" label={t('ui.contact.emailLabel')} />
               
               <div className="relative mb-12">
                 <textarea
@@ -83,7 +78,7 @@ export default function Contact() {
                   className="w-full bg-transparent border-b border-[var(--color-nocturne-elevated)] py-4 text-cream editorial-body focus:outline-none focus:border-[var(--color-nocturne-cream)] transition-colors duration-300 resize-none overflow-hidden"
                 />
                 <label className="absolute left-0 top-4 transition-all duration-300 pointer-events-none editorial-mono text-xs text-cream-dim/50 label-text">
-                  PROJECT DETAILS
+                  {t('ui.contact.msgLabel')}
                 </label>
                 <style>{`
                   .focused .label-text, .has-value .label-text {
@@ -97,7 +92,7 @@ export default function Contact() {
                 type="button"
                 className="group flex items-center justify-between w-full border-b border-[var(--color-nocturne-elevated)] pb-4 hover:border-cream transition-colors duration-300"
               >
-                <span className="editorial-mono text-xs text-cream tracking-widest">SEND INQUIRY</span>
+                <span className="editorial-mono text-xs text-cream tracking-widest">{t('ui.contact.send')}</span>
                 <ArrowRight size={16} className="text-cream group-hover:translate-x-2 transition-transform duration-300" />
               </button>
             </form>
@@ -114,7 +109,7 @@ export default function Contact() {
           <a href="https://www.instagram.com/mhmdrfzn_/" className="hover:text-cream transition-colors">INSTAGRAM</a>
         </div>
         <div>
-          &copy; {new Date().getFullYear()} MOCHAMAD RISYAD. ALL RIGHTS RESERVED.
+          &copy; {new Date().getFullYear()} MOCHAMAD RISYAD. {t('ui.contact.rights')}
         </div>
       </footer>
     </section>

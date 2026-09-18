@@ -79,6 +79,12 @@
   100% { transform: translateY(0); opacity: 1; }
 }
 
+/* Gerak napas sinematik untuk video background global */
+@keyframes bg-drift {
+  0% { transform: scale(1) translateY(0); }
+  100% { transform: scale(1.12) translateY(-1.5%); }
+}
+
 /* ========== Animation Utilities ========== */
 @layer utilities {
   .animate-marquee-left {
@@ -91,6 +97,10 @@
 
   .animate-reveal {
     animation: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-bg-drift {
+    animation: bg-drift 36s ease-in-out infinite alternate;
   }
 }
 

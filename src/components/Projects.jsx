@@ -1,4 +1,6 @@
-import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
+import { ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 const projectImages = [
@@ -10,94 +12,168 @@ const projectImages = [
   '/projects/attendance.png',
 ];
 
+const projectTags = ['WEB APP', 'MOBILE', 'SYSTEM', 'PLATFORM', 'AI / ML', 'TOOLS'];
+
+const EASE = [0.16, 1, 0.3, 1];
+const AUTOPLAY_MS = 4500;
+
+/**
+ * Gallery autoplay slide deck:
+ * kartu berpindah SENDIRI tiap 4,5 detik (pause saat hover),
+ * meluncur dari KIRI ke KANAN menutupi kartu sebelumnya.
+ * Foto hitam-putih — berwarna + zoom saat di-hover (CSS murni).
+ */
 export default function Projects() {
   const { t } = useLanguage();
-  const translatedProjects = t('projects.items').slice(0, 6); // Limit to 6 for grid layout
+  const reduce = useReducedMotion();
+  const items = t('projects.items').slice(0, 6);
+  const N = items.length;
+
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  // Autoplay: maju sendiri, timer reset tiap pindah manual
+  useEffect(() => {
+    if (paused || reduce) return;
+    const timer = setTimeout(() => setActive((a) => (a + 1) % N), AUTOPLAY_MS);
+    return () => clearTimeout(timer);
+  }, [active, paused, reduce, N]);
+
+  const select = (i) => setActive(((i % N) + N) % N);
+
+  const cardState = (i) => {
+    if (reduce) return { opacity: i === active ? 1 : 0, x: '0%', scale: 1 };
+    if (i === active) return { opacity: 1, x: '0%', scale: 1 };
+    if (i < active) return { opacity: 0, x: '45%', scale: 0.94 }; // keluar ke kanan
+    return { opacity: 0, x: '-45%', scale: 0.94 }; // menunggu di kiri
+  };
 
   return (
-    <section id="proyek" className="relative py-16 sm:py-24 md:py-32 bg-[var(--color-nocturne-base)] border-t border-[var(--color-nocturne-elevated)]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
-        
-        {/* Section header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.8 }}
-          className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 sm:mb-16 md:mb-24 gap-4 sm:gap-6 md:gap-8"
-        >
-          <div>
-            <span className="editorial-mono text-xs text-cream-dim block mb-4 md:mb-6">02 // SELECTED WORKS</span>
-            <h2 className="editorial-heading text-3xl sm:text-4xl md:text-6xl lg:text-[4.5rem] text-cream leading-none">
-              Gallery.
-            </h2>
-          </div>
-          <div className="md:text-right max-w-sm">
-            <p className="editorial-body text-cream-dim text-base md:text-lg">
-              A collection of digital platforms, tools, and experiences designed with precision and built for scale.
-            </p>
-          </div>
-        </motion.div>
+    <section id="proyek" className="relative bg-[#141312]/80 border-t border-[var(--color-nocturne-elevated)]">
+      <div className="flex h-[100svh] w-full flex-col overflow-hidden">
 
-        {/* Asymmetrical Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-y-10 sm:gap-y-16 md:gap-y-24 gap-x-6 sm:gap-x-8 lg:gap-x-12">
-          {translatedProjects.map((project, index) => {
-            // Logic for asymmetrical layout on large screens
-            let colSpan = 'lg:col-span-12';
-            let margin = '';
-            
-            if (index % 3 === 0) {
-              colSpan = 'lg:col-span-7'; // Large left
-            } else if (index % 3 === 1) {
-              colSpan = 'lg:col-span-5 lg:col-start-8'; // Medium right
-              margin = 'lg:mt-32';
-            } else {
-              colSpan = 'lg:col-span-6 lg:col-start-4'; // Medium center-left
-              margin = 'lg:-mt-16';
-            }
+        {/* Bar atas: label + counter */}
+        <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 sm:px-6 md:px-12 pt-20 sm:pt-24">
+            <span className="editorial-mono text-[10px] sm:text-xs tracking-[0.3em] text-cream-dim">
+              {t('ui.projects.eyebrow')}
+            </span>
+          <span className="editorial-mono text-[10px] sm:text-xs tracking-[0.3em] text-cream-dim tabular-nums">
+            <span className="text-[var(--color-nocturne-sand)]">
+              {String(active + 1).padStart(2, '0')}
+            </span>
+            {' / '}
+            {String(N).padStart(2, '0')}
+          </span>
+        </div>
 
-            return (
+        {/* Progress: timer autoplay kartu aktif */}
+        <div className="mx-auto mt-3 w-full max-w-7xl px-4 sm:px-6 md:px-12">
+          <div className="h-px w-full bg-white/10">
+            {!reduce && !paused && (
               <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className={`${colSpan} ${margin} group cursor-pointer w-full`}
-              >
-                <div className="relative overflow-hidden bg-[var(--color-nocturne-surface)] aspect-[16/10] mb-5 md:mb-6">
-                  {/* Reveal overlay */}
-                  <motion.div
-                    initial={{ scaleY: 1 }}
-                    whileInView={{ scaleY: 0 }}
-                    viewport={{ once: true, margin: "-50px" }}
-                    transition={{ duration: 1, delay: 0.2, ease: [0.76, 0, 0.24, 1] }}
-                    className="absolute inset-0 bg-[var(--color-nocturne-sand)] z-20 origin-top"
-                  />
-                  
+                key={active}
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ duration: AUTOPLAY_MS / 1000, ease: 'linear' }}
+                className="h-full w-full origin-left bg-[var(--color-nocturne-sand)]"
+              />
+            )}
+          </div>
+        </div>
+
+        {/* Arena kartu (hover = jeda autoplay) */}
+        <div
+          className="relative flex-1"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+        >
+          {items.map((project, i) => (
+            <motion.div
+              key={project.title}
+              initial={false}
+              animate={cardState(i)}
+              transition={{ duration: 0.85, ease: EASE }}
+              style={{ zIndex: i === active ? 10 : 1 }}
+              className={`absolute inset-0 flex items-center justify-center px-4 sm:px-8 will-change-transform ${
+                i === active ? 'pointer-events-auto' : 'pointer-events-none'
+              }`}
+            >
+              <article className="group grid h-full max-h-[62svh] sm:max-h-[66svh] md:max-h-[70svh] w-full max-w-6xl overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-[#1A1918] shadow-[0_30px_80px_rgba(0,0,0,0.55)] md:grid-cols-[1.15fr_1fr]">
+                {/* Gambar: hitam-putih, berwarna + zoom saat hover */}
+                <div className="relative h-[24svh] sm:h-[26svh] md:h-auto overflow-hidden">
                   <img
-                    src={projectImages[index]}
+                    src={projectImages[i % projectImages.length]}
                     alt={project.title}
-                    className="w-full h-full object-cover grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                    loading={i === 0 ? 'eager' : 'lazy'}
+                    decoding="async"
+                    className="absolute inset-0 h-full w-full object-cover grayscale transition-all duration-700 ease-out group-hover:grayscale-0 group-hover:scale-[1.04]"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#1A1918]/60 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:via-transparent md:to-[#1A1918]/40" />
+                  <span className="editorial-heading absolute left-4 top-3 sm:left-6 sm:top-5 select-none text-5xl sm:text-7xl leading-none text-white/15">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
                 </div>
 
-                <div className="flex flex-col gap-2 border-t border-[var(--color-nocturne-elevated)] pt-4">
-                  <div className="flex justify-between items-baseline gap-4">
-                    <h3 className="editorial-heading text-xl md:text-2xl text-cream group-hover:text-white transition-colors duration-300 truncate">
-                      {project.title}
-                    </h3>
-                    <span className="editorial-mono text-[10px] text-cream-dim shrink-0">
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
-                  </div>
-                  <p className="editorial-body text-sm text-cream-dim line-clamp-2">
+                {/* Teks */}
+                <div className="flex min-h-0 flex-col justify-center gap-3 sm:gap-4 p-5 sm:p-8 lg:p-12">
+                  <span className="editorial-mono w-fit rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[9px] sm:text-[10px] tracking-[0.25em] text-[var(--color-nocturne-cream)]/80">
+                    {projectTags[i % projectTags.length]}
+                  </span>
+                  <h3 className="editorial-heading text-2xl sm:text-4xl lg:text-5xl leading-[1.05] text-[var(--color-nocturne-cream)]">
+                    {project.title}
+                  </h3>
+                  <p className="editorial-body text-xs sm:text-sm lg:text-base font-light leading-relaxed text-[var(--color-nocturne-cream)]/70 line-clamp-2 md:line-clamp-3">
                     {project.description}
                   </p>
+                  <a
+                    href="#kontak"
+                    className="group/link mt-1 sm:mt-2 inline-flex w-fit items-center gap-2 border-b border-white/20 pb-1 editorial-mono text-[10px] sm:text-xs tracking-[0.25em] text-[var(--color-nocturne-cream)] transition-colors hover:border-[var(--color-nocturne-sand)] hover:text-[var(--color-nocturne-sand)]"
+                  >
+                    {t('ui.projects.viewCase')}
+                    <ArrowUpRight
+                      size={14}
+                      className="transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5"
+                    />
+                  </a>
                 </div>
-              </motion.div>
-            );
-          })}
+              </article>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Bar bawah: dots + prev/next */}
+        <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 sm:px-6 md:px-12 pb-6 sm:pb-8">
+          <div className="flex items-center gap-2">
+            {items.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => select(i)}
+                  aria-label={`${t('ui.projects.goTo')} ${i + 1}`}
+                className={`h-1.5 rounded-full transition-all duration-500 ${
+                  i === active ? 'w-8 bg-[var(--color-nocturne-sand)]' : 'w-3 bg-white/20 hover:bg-white/40'
+                }`}
+              />
+            ))}
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="editorial-mono hidden sm:inline text-[10px] tracking-[0.3em] text-white/40 mr-2">
+              {paused ? t('ui.projects.paused') : t('ui.projects.autoplay')}
+            </span>
+            <button
+              onClick={() => select(active - 1)}
+              aria-label={t('ui.projects.prev')}
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-cream-dim transition-colors hover:border-[var(--color-nocturne-sand)] hover:text-[var(--color-nocturne-sand)]"
+            >
+              <ChevronLeft size={16} />
+            </button>
+            <button
+              onClick={() => select(active + 1)}
+              aria-label={t('ui.projects.next')}
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-cream-dim transition-colors hover:border-[var(--color-nocturne-sand)] hover:text-[var(--color-nocturne-sand)]"
+            >
+              <ChevronRight size={16} />
+            </button>
+          </div>
         </div>
 
       </div>

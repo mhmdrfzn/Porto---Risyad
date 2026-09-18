@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUp } from 'lucide-react';
 
@@ -8,6 +8,8 @@ import About from './components/About';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
+import Preloader from './components/Preloader';
+import GlobalBackground from './components/GlobalBackground';
 
 function ScrollToTop() {
   const [visible, setVisible] = useState(false);
@@ -42,22 +44,48 @@ function ScrollToTop() {
 }
 
 function App() {
+  const [loading, setLoading] = useState(true);
+  const [revealed, setRevealed] = useState(false);
+
+  const handleReveal = useCallback(() => setRevealed(true), []);
+  const handleDone = useCallback(() => setLoading(false), []);
+
+  // Kunci scroll selama preloader tampil. Konten di-mount saat mozaik
+  // MULAI (bukan setelah selesai) agar ubin menyingkap langsung ke page.
+  useEffect(() => {
+    document.body.style.overflow = loading ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [loading]);
+
   return (
     <div className="relative min-h-screen bg-[var(--color-nocturne-base)] font-sans">
-      {/* Navigation */}
-      <Navbar />
+      {/* Video background global di belakang semua page */}
+      <GlobalBackground />
 
-      {/* Main content */}
-      <main className="relative z-10">
-        <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <Contact />
-      </main>
+      <AnimatePresence>
+        {loading && <Preloader onReveal={handleReveal} onDone={handleDone} />}
+      </AnimatePresence>
 
-      {/* Scroll to top button */}
-      <ScrollToTop />
+      {revealed && (
+        <>
+          {/* Navigation */}
+          <Navbar />
+
+          {/* Main content */}
+          <main className="relative z-10">
+            <Hero />
+            <About />
+            <Skills />
+            <Projects />
+            <Contact />
+          </main>
+
+          {/* Scroll to top button */}
+          <ScrollToTop />
+        </>
+      )}
     </div>
   );
 }

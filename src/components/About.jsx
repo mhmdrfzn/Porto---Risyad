@@ -1,35 +1,31 @@
 import { motion } from 'framer-motion';
+import { Parallax } from './RevealText';
 import { useLanguage } from '../context/LanguageContext';
 
 export default function About() {
   const { t } = useLanguage();
 
   const stats = [
-    { label: 'YEARS EXP.', value: '04' },
-    { label: 'PROJECTS', value: '15+' },
-    { label: 'AWARDS', value: '02' },
+    { label: t('about.stats.study'), value: '04' },
+    { label: t('about.stats.projects'), value: '15+' },
+    { label: t('about.stats.certs'), value: '02' },
   ];
 
   return (
-    <section id="tentang" className="relative py-16 sm:py-24 md:py-32 bg-[var(--color-nocturne-base)] border-t border-[var(--color-nocturne-elevated)]">
+    <section id="tentang" className="relative py-16 sm:py-24 md:py-32 bg-[#141312]/80 border-t border-[var(--color-nocturne-elevated)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
         
         <div className="flex flex-col lg:flex-row gap-10 sm:gap-16 lg:gap-24">
           
           {/* Header & Stats - Left Column */}
           <div className="flex-1 lg:max-w-md flex flex-col justify-between">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.8 }}
-            >
-              <span className="editorial-mono text-xs text-cream-dim block mb-4 md:mb-6">03 // PHILOSOPHY</span>
+            <Parallax>
+              <span className="editorial-mono text-xs text-cream-dim block mb-4 md:mb-6">{t('ui.about.eyebrow')}</span>
               <h2 className="editorial-heading text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] text-cream leading-[1.1]">
-                Engineering <br className="hidden md:block" />
-                <span className="italic text-cream-dim block mt-2">meets</span> aesthetics.
+                {t('ui.about.titleA')} <br className="hidden md:block" />
+                <span className="italic text-cream-dim block mt-2">{t('ui.about.titleB')}</span> {t('ui.about.titleC')}
               </h2>
-            </motion.div>
+            </Parallax>
 
             <motion.div
               initial={{ opacity: 0 }}
@@ -49,23 +45,20 @@ export default function About() {
 
           {/* Narrative - Right Column */}
           <div className="flex-1 flex flex-col justify-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+            <Parallax
+              distance={80}
               className="editorial-body text-base sm:text-lg md:text-xl leading-relaxed text-cream-dim"
             >
               <p className="mb-6 md:mb-8">
-                I believe that exceptional digital experiences are born at the intersection of <strong className="text-cream font-normal">systematic engineering</strong> and <strong className="text-cream font-normal">refined visual design</strong>.
+                {t('ui.about.p1pre')}<strong className="text-cream font-normal">{t('ui.about.p1s1')}</strong>{t('ui.about.p1mid')}<strong className="text-cream font-normal">{t('ui.about.p1s2')}</strong>{t('ui.about.p1post')}
               </p>
               <p className="mb-6 md:mb-8">
-                My approach is rooted in minimalism—stripping away the unnecessary to reveal the core purpose of a product. Whether it's architecting a complex backend in Laravel or crafting a fluid, immersive interface with React, Tailwind CSS, Vue and Next.js, the goal remains the same: <em className="text-cream not-italic">clarity through code</em>.
+                {t('ui.about.p2pre')}<em className="text-cream not-italic">{t('ui.about.p2em')}</em>{t('ui.about.p2post')}
               </p>
               <p>
-                Based in Indonesia, I partner with forward-thinking brands and teams to build platforms that don't just function flawlessly, but feel inherently right.
+                {t('ui.about.p3')}
               </p>
-            </motion.div>
+            </Parallax>
 
             {/* Mobile Stats */}
             <motion.div
